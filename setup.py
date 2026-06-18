@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 from northgate import __version__
 
 setup(
-    name="NorthGate",
+    name="northgate",
     version=__version__,
     description="NorthGate - p2p web sharing",
     author="NorthGate-org",

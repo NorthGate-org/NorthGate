@@ -14,6 +14,7 @@ def get_last_version():
             for line in content.splitlines():
                 if line.startswith("__version__"):
                     latest_version = line.split("=")[1].strip().strip('"')
+                    logger.debug("Latest version found: {}".format(latest_version))
                     return latest_version
     except Exception as e:
         logger.error("Error fetching latest version: {}".format(e))
