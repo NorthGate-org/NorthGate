@@ -1,6 +1,6 @@
 @ECHO OFF
 SET "ENVIRONMENT=env"
-SET "LOGGING_LEVEL=INFO"
+SET "LOGGING_LEVEL=DEBUG"
 
 IF NOT EXIST "%ENVIRONMENT%\" (
     ECHO [INFO] The environment directory is missing. Creating...
