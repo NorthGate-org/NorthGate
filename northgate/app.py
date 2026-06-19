@@ -1,7 +1,9 @@
+import os
 import webbrowser
 import uvicorn
 from fastapi import FastAPI
 from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 
 from .logger import logger
 
@@ -11,6 +13,9 @@ def application(web_port):
         webbrowser.open(f"http://127.0.0.1:{web_port}")
 
     app = FastAPI(on_startup=[callback])
+
+    # Add static file route for the web interface
+    app.mount("/static", StaticFiles(directory="northgate/web/static"), name="static")
 
     @app.get("/")
     async def index():
