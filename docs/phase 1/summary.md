@@ -48,6 +48,7 @@ NorthGate/
 ### Important paths
 
 - `northgate/`: main Python package for the application code.
+- `northgate/app.py`: Application endpoints.
 - `northgate/main.py`: CLI startup point for NorthGate.
 - `northgate/logger.py`: shared logger configuration.
 - `northgate/constants.py`: shared constants such as the latest-version URL.
