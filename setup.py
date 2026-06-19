@@ -18,4 +18,5 @@ setup(
             "northgate=northgate.main:main",
         ],
     },
+    test_suite="tests"
 )

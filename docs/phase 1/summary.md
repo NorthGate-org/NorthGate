@@ -19,11 +19,13 @@ The Phase 1 goal is to support static website sharing only: HTML, CSS, and image
 - Windows launcher: `run_windows.bat`
 - Planned P2P layer dependencies already listed: `pyp2p`, `Twisted`, `websockets`, `netifaces`, `ntplib`, and related networking packages
 - Planned encryption dependencies already listed: `cryptography`, `cffi`, and `pycparser`
+- Local database with `sqlite`, self-created and migrated at start
 
 ## General project structure
 
 ```text
 NorthGate/
+├── northgate.db
 ├── README.md
 ├── requirements.txt
 ├── run_windows.bat
@@ -57,6 +59,7 @@ NorthGate/
 - `sites/<site name>/site.yaml`: per-site metadata and sharing configuration.
 - `sites/<site name>/index.html`: default HTML entry file for a shared site.
 - `sites/<site name>/assets/`: static CSS, image, and other supported asset files.
+- `tests/` : The TDD and unit tests.
 - `docs/`: development and planning documentation.
 
 ## Phase 1 feature scope

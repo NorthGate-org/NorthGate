@@ -5,6 +5,7 @@ from fastapi import FastAPI
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 
+from northgate.database.init import init_database
 from .logger import logger
 
 
@@ -20,6 +21,9 @@ def application(web_port):
     @app.get("/")
     async def index():
         return FileResponse('northgate/web/index.html', media_type='text/html')
+    
+    # Initialize the backend database
+    init_database()
     
     return app
 

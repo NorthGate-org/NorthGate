@@ -1,0 +1,13 @@
+name: Example 1
+description: Example description for Example 1
+visibility: private
+password: null
+entry: index.html
+allowed_extensions:
+	- .html
+	- .css
+	- .png
+	- .jpg
+	- .jpeg
+	- .gif
+	- .webp
