@@ -26,8 +26,42 @@ class Site(BaseModel):
     def fields(self):
         return ["id", "name", "visibility", "path", "local", "password", "entry", "allowed_extensions", "description"]
     
+    def insert_statement(self):
+        if isinstance(self.allowed_extensions, list):
+            self.allowed_extensions = ",".join(self.allowed_extensions)
+        return (
+            "INSERT INTO {} (id, name, visibility, path, local, password, entry, allowed_extensions, description) " \
+            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)".format(self.database_table),
+            (self.id, self.name, self.visibility, self.path, self.local, self.password, self.entry, self.allowed_extensions, 
+             self.description)
+        )
+    
+    def update_statement(self):
+        if isinstance(self.allowed_extensions, list):
+            self.allowed_extensions = ",".join(self.allowed_extensions)
+        return (
+            "UPDATE {} SET name = ?, visibility = ?, path = ?, local = ?, password = ?, entry = ?, allowed_extensions = ?, " \
+            "description = ? WHERE id = ?".format(self.database_table),
+            (self.name, self.visibility, self.path, self.local, self.password, self.entry, self.allowed_extensions, 
+             self.description, self.id)
+        )
+    
     def toJson(self):
         return super().toJson()
+    
+    @staticmethod
+    def fromRow(row):
+        return Site(
+            id=row[0],
+            name=row[1],
+            visibility=row[2],
+            path=row[3],
+            local=row[4],
+            password=row[5],
+            entry=row[6],
+            allowed_extensions=row[7],
+            description=row[8]
+        )
     
     @staticmethod
     def fromYaml(id, path, yaml_data):
