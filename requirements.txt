@@ -7,10 +7,12 @@ Automat==25.4.16
 certifi==2026.6.17
 cffi==2.0.0
 charset-normalizer==3.4.7
+click==8.4.1
 colorama==0.4.6
 constantly==23.10.4
 cryptography==49.0.0
 fastapi==0.137.2
+h11==0.16.0
 hyperlink==21.0.0
 idna==3.18
 Incremental==24.11.0
@@ -43,6 +45,7 @@ typer-slim==0.24.0
 typing-inspection==0.4.2
 typing_extensions==4.15.0
 urllib3==2.7.0
+uvicorn==0.49.0
 websockets==16.0
 win-inet-pton==1.1.0
 zope.interface==8.5
