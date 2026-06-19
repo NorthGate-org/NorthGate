@@ -1,7 +1,8 @@
 CREATE TABLE IF NOT EXISTS sites (
-    id INTEGER PRIMARY KEY,
+    id TEXT PRIMARY KEY,
     name TEXT NOT NULL,
     visibility TEXT NOT NULL,
+    path TEXT NOT NULL,
     local BOOLEAN NOT NULL DEFAULT 0,
     password TEXT,
     entry TEXT,
