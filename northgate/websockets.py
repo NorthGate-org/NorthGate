@@ -24,10 +24,12 @@ def add_ws_endpoint(app):
                 decoded_data = json.loads(data)
                 action = decoded_data.get("action")
                 try:
+                    # Loading local sites
                     if action == LOAD_LOCAL_SITES:
                         local_sites = get_local_sites()
                         local_sites_json = [site.toJson() for site in local_sites]
                         await send_clients_data(clients, json.dumps({"action": LOAD_LOCAL_SITES, "data": local_sites_json}), websocket)
+                        
                 except Exception as e:
                     logger.error("Error processing action {}: {}".format(action, e))
                     await websocket.send_text(json.dumps({"action": ERROR_MESSAGE, "message": "Error: {}".format(e)}))

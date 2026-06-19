@@ -14,6 +14,7 @@ const INTERFACE_ELEMENTS_IDS = {
 };
 
 // Data
+let localSitesLoaded = false;
 const localSites = [];
 
 // Utils
@@ -43,7 +44,8 @@ $.when( $.ready ).then(function() {
       console.log("Local sites loaded:", message.data);
       localSites.length = 0;
       message.data.forEach(site => localSites.push(site));
-
+      localSitesLoaded = true;
+      
     } else if (message.action === ACTIONS.ERROR_MESSAGE) {
       // Error handling
       console.error("Error message received:", message.message);
