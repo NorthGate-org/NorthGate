@@ -47,6 +47,8 @@ class Site(BaseModel):
         )
     
     def toDict(self):
+        if isinstance(self.allowed_extensions, list):
+            self.allowed_extensions = ",".join(self.allowed_extensions)
         return super().toDict()
     
     def toJson(self):
