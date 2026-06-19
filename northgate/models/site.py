@@ -1,4 +1,5 @@
 from yaml import safe_load
+from uuid import uuid8
 
 from .models import BaseModel
 
@@ -11,7 +12,8 @@ class Site(BaseModel):
     database_table = "sites"
 
     def __init__(self, id, name, visibility, path, local=False, password=None, entry=None, allowed_extensions=None, description=None):
-        self.id = id
+        id = id if id is not None else str(uuid8())
+        self.id = id if isinstance(id, str) else str(id)
         self.name = name
         self.visibility = visibility
         self.path = path

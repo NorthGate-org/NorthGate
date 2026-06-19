@@ -10,6 +10,7 @@ class TestSite(unittest.TestCase):
         id = uuid8()
         site = Site(id=id, name="Docs", visibility="public", path="/sites/local")
 
+        self.assertEqual(site.id, str(id))
         self.assertEqual(site.name, "Docs")
         self.assertEqual(site.visibility, "public")
         self.assertEqual(site.path, "/sites/local")
@@ -22,7 +23,7 @@ class TestSite(unittest.TestCase):
     def test_to_json_includes_all_site_fields(self):
         id = uuid8()
         site = Site(
-            id=str(id),
+            id=id,
             name="Portal",
             visibility="private",
             path="/sites/portal",
@@ -52,7 +53,7 @@ class TestSite(unittest.TestCase):
         id = uuid8()
         site = Site.fromYaml(id=id, path="/sites/blog", yaml_data={"name": "Blog", "visibility": "public"})
 
-        self.assertEqual(site.id, id)
+        self.assertEqual(site.id, str(id))
         self.assertEqual(site.name, "Blog")
         self.assertEqual(site.visibility, "public")
         self.assertEqual(site.path, "/sites/blog")
@@ -77,7 +78,7 @@ class TestSite(unittest.TestCase):
             """
         )
 
-        self.assertEqual(site.id, id)
+        self.assertEqual(site.id, str(id))
         self.assertEqual(site.name, "Example")
         self.assertEqual(site.visibility, "private")
         self.assertEqual(site.path, "/sites/example")
