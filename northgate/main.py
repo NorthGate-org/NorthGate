@@ -1,11 +1,11 @@
-# Set up logging
 import sys
 import argparse
 
 from . import __version__
 from .logger import logger
 from .utils import get_last_version
-
+from .app import application, start_server
+    
 
 def main():
     parser = argparse.ArgumentParser(
@@ -28,8 +28,8 @@ def main():
     args = parser.parse_args()
 
     # Set logging level based on user input
-    loglevel = args.logging_level
-    logger.setLevel(loglevel)
+    log_level = args.logging_level
+    logger.setLevel(log_level)
 
     # Start the application
     logger.info("Python version: {}".format(sys.version))
@@ -40,6 +40,9 @@ def main():
     if last_version and last_version != __version__:
         logger.warning("A new version of NorthGate is available: {}. " \
             "You are using version {}.".format(last_version, __version__))
+
+    app = application(args.web_port)
+    start_server(app, args.web_port, log_level)
 
 if __name__ == "__main__":
     main()

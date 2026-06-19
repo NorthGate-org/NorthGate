@@ -35,6 +35,9 @@ run_windows.bat
 
 # Run directly in folder
 python -m northgate.main --logging-level INFO --web-port 8000
+
+# Run as installed package
+northgate --logging-level INFO --web-port 8000
 ```
 
 # Documentation
