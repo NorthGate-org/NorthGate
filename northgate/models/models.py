@@ -9,8 +9,11 @@ class BaseModel:
     def fields(self):
         raise NotImplementedError("Subclasses should implement this!")
     
-    def toJson(self):
+    def toDict(self):
         dict = {}
         for field in self.fields():
             dict[field] = getattr(self, field, None)
-        return json.dumps(dict)
+        return dict
+    
+    def toJson(self):
+        return json.dumps(self.toDict())

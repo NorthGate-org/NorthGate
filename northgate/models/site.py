@@ -46,6 +46,9 @@ class Site(BaseModel):
              self.description, self.id)
         )
     
+    def toDict(self):
+        return super().toDict()
+    
     def toJson(self):
         return super().toJson()
     

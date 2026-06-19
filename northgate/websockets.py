@@ -6,11 +6,6 @@ from .constants import LOAD_LOCAL_SITES, ERROR_MESSAGE
 from northgate.database.sites import get_local_sites
 
 
-async def send_clients_data(clients: list[WebSocket], data: str, sender: WebSocket):
-    for client in clients:
-        if client != sender:
-            await client.send_text(data)
-
 def add_ws_endpoint(app):
     clients: list[WebSocket] = []
 
@@ -27,9 +22,10 @@ def add_ws_endpoint(app):
                     # Loading local sites
                     if action == LOAD_LOCAL_SITES:
                         local_sites = get_local_sites()
-                        local_sites_json = [site.toJson() for site in local_sites]
-                        await send_clients_data(clients, json.dumps({"action": LOAD_LOCAL_SITES, "data": local_sites_json}), websocket)
-                        
+                        local_sites_dict = [site.toDict() for site in local_sites]
+                        logger.debug("Local sites loaded: {}".format(local_sites_dict))
+                        await websocket.send_text(json.dumps({"action": LOAD_LOCAL_SITES, "data": local_sites_dict}))
+
                 except Exception as e:
                     logger.error("Error processing action {}: {}".format(action, e))
                     await websocket.send_text(json.dumps({"action": ERROR_MESSAGE, "message": "Error: {}".format(e)}))
