@@ -10,9 +10,11 @@ class Site(BaseModel):
     """
     database_table = "sites"
 
-    def __init__(self, name, visibility, local=False, password=None, entry=None, allowed_extensions=None, description=None):
+    def __init__(self, id, name, visibility, path, local=False, password=None, entry=None, allowed_extensions=None, description=None):
+        self.id = id
         self.name = name
         self.visibility = visibility
+        self.path = path
         self.local = local
         self.password = password
         self.entry = entry
@@ -20,18 +22,20 @@ class Site(BaseModel):
         self.description = description
 
     def fields(self):
-        return ["name", "visibility", "local", "password", "entry", "allowed_extensions", "description"]
+        return ["id", "name", "visibility", "path", "local", "password", "entry", "allowed_extensions", "description"]
     
     def toJson(self):
         return super().toJson()
     
     @staticmethod
-    def fromYaml(yaml_data):
+    def fromYaml(id, path, yaml_data):
         if isinstance(yaml_data, str):
             yaml_data = safe_load(yaml_data)
         return Site(
+            id=id,
             name=yaml_data.get("name"),
             visibility=yaml_data.get("visibility"),
+            path=path,
             local=yaml_data.get("local", False),
             password=yaml_data.get("password"),
             entry=yaml_data.get("entry"),
