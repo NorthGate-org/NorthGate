@@ -10,7 +10,9 @@ const ACTIONS = {
 const INTERFACE_ELEMENTS_IDS = {
   LOADING_MESSAGE: "northgate_loading_message",
   LOADING_ALERT: "northgate_loading_alert",
-  LOADING_SPINNER: "northgate_loading_spinner"
+  LOADING_SPINNER: "northgate_loading_spinner",
+  MAIN_DIV: "northgate_main_div",
+  LOCAL_SITES_CONTAINER: "northgate_local_sites"
 };
 
 // Data
@@ -21,6 +23,21 @@ const localSites = [];
 function getPort() {
   const port = location.host.split(":")[1];
   return port;
+}
+
+// Functions
+function displayLocalSites() {
+  const localSitesContainer = $(`#${INTERFACE_ELEMENTS_IDS.LOCAL_SITES_CONTAINER}`);
+  localSitesContainer.empty();
+  localSites.forEach(site => {
+    const siteElement = $(`
+      <div class="northgate_site">
+        <h3>${site.name}</h3>
+        <p>${site.description}</p>
+      </div>
+    `);
+    localSitesContainer.append(siteElement);
+  });
 }
 
 // INIT
@@ -44,8 +61,15 @@ $.when( $.ready ).then(function() {
       console.log("Local sites loaded:", message.data);
       localSites.length = 0;
       message.data.forEach(site => localSites.push(site));
+      if(!localSitesLoaded) {
+        // Next step?
+        $(`#${INTERFACE_ELEMENTS_IDS.LOADING_MESSAGE}`).hide();
+        $(`#${INTERFACE_ELEMENTS_IDS.LOADING_SPINNER}`).hide();
+        $(`#${INTERFACE_ELEMENTS_IDS.MAIN_DIV}`).show();
+      }
       localSitesLoaded = true;
-      
+      displayLocalSites();
+
     } else if (message.action === ACTIONS.ERROR_MESSAGE) {
       // Error handling
       console.error("Error message received:", message.message);
